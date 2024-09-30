@@ -87,3 +87,4 @@ $segitiga3 = new SegitigaBintang();
 $segitiga3->setTinggi(10);
 echo "<br>Segitiga Kiri:<br>";
 $segitiga3->cetakSegitigaKiri();
+?>
