@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Barang</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th, td {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h2>Data Barang</h2>
+    <button onclick="addBarang()">Tambah Barang</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Harga</th>
+                <th>Jumlah</th>
+                <th>Sub Total</th>
+            </tr>
+        </thead>
+        <tbody id="barangTable">
+            <!-- Data Barang akan ditambahkan di sini -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total Harga :</td>
+                <td id="totalHarga">0</td>
+            </tr>
+            <tr>
+                <td colspan="3">Potongan harga dari Diskon <span id="diskonRate">0</span>% :</td>
+                <td id="hargaDiskon">0</td>
+            </tr>
+            <tr>
+                <td colspan="3">Dibayar :</td>
+                <td id="dibayar">0</td>
+            </tr>
+            <tr>
+                <td colspan="3">Kembali :</td>
+                <td id="kembali">0</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script>
+        let totalHarga = 0;
+        let hargaSetelahDiskon = 0;
+        let diskonRate = 0;
+        let dibayar = 0;
+
+        function addBarang() {
+            const namaBarang = prompt("Masukan Nama Barang");
+            const hargaBarang = parseFloat(prompt("Masukan Harga Barang"));
+            const jumlahBarang = parseInt(prompt("Masukan Jumlah Barang"));
+            const subTotal = hargaBarang * jumlahBarang;
+
+            totalHarga += subTotal;
+            hargaSetelahDiskon = totalHarga - ((diskonRate / 100) * totalHarga);
+
+            const diskonRateInput = prompt("Masukan % Diskon");
+            if (diskonRateInput !== null) {
+                diskonRate = parseFloat(diskonRateInput);
+            }
+
+            const dibayarInput = prompt("Dibayar");
+            if (dibayarInput !== null) {
+                dibayar = parseFloat(dibayarInput);
+            }
+
+            const kembali = dibayar - hargaSetelahDiskon;
+
+            const table = document.getElementById("barangTable");
+            const row = table.insertRow();
+            row.insertCell(0).innerHTML = namaBarang;
+            row.insertCell(1).innerHTML = hargaBarang;
+            row.insertCell(2).innerHTML = jumlahBarang;
+            row.insertCell(3).innerHTML = subTotal;
+
+            document.getElementById("totalHarga").innerHTML = totalHarga;
+            document.getElementById("diskonRate").innerHTML = diskonRate;
+            document.getElementById("hargaDiskon").innerHTML = hargaSetelahDiskon;
+            document.getElementById("dibayar").innerHTML = dibayar;
+            document.getElementById("kembali").innerHTML = kembali;
+        }
+    </script>
+</body>
+</html>
